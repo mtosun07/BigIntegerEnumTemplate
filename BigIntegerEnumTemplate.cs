@@ -51,22 +51,22 @@ namespace TSN.Templates
             using (var ms = new MemoryStream(bytes))
                 return (BigIntegerEnumTemplate)formatter.Deserialize(ms);
         }
-        public static bool TryParse(string s, out BigIntegerEnumTemplate ug)
+        public static bool TryParse(string s, out BigIntegerEnumTemplate e)
         {
-            ug = BigInteger.Zero;
+            e = BigInteger.Zero;
             if (s == null)
                 return false;
             foreach (var name in s.Split(new[] { _seperator }, StringSplitOptions.None))
                 if (_allValues.Value.TryGetValue(s, out var x))
-                    ug |= x;
+                    e |= x;
                 else
                 {
-                    ug = BigInteger.Zero;
+                    e = BigInteger.Zero;
                     return false;
                 }
             return true;
         }
-        public static BigIntegerEnumTemplate Parse(string s) => TryParse(s, out var ug) ? ug : throw new FormatException();
+        public static BigIntegerEnumTemplate Parse(string s) => TryParse(s, out var e) ? e : throw new FormatException();
 
         public byte[] ToByteArray()
         {
@@ -113,7 +113,7 @@ namespace TSN.Templates
             return stringBuilder.ToString();
         }
         public override int GetHashCode() => _value.GetHashCode();
-        public override bool Equals(object obj) => obj is BigIntegerEnumTemplate ug && Equals(ug);
+        public override bool Equals(object obj) => obj is BigIntegerEnumTemplate e && Equals(e);
 
         public int CompareTo(object obj) => _value.CompareTo(obj);
         public int CompareTo(BigIntegerEnumTemplate other) => _value.CompareTo(other._value);
