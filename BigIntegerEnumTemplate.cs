@@ -16,8 +16,7 @@ namespace TSN.Templates
     {
         static BigIntegerEnumTemplate()
         {
-            var t = typeof(BigIntegerEnumTemplate);
-            _allValues = new Lazy<IReadOnlyDictionary<string, BigIntegerEnumTemplate>>(() => new ReadOnlyDictionary<string, BigIntegerEnumTemplate>(t.GetFields(BindingFlags.Public | BindingFlags.Static).Where(x => x.DeclaringType.Equals(t)).Select(x => new { x.Name, Value = (BigIntegerEnumTemplate)x.GetValue(null) }).ToDictionary(x => x.Name, x => x.Value)));
+            _allValues = new Lazy<IReadOnlyDictionary<string, Grants>>(() => new ReadOnlyDictionary<string, Grants>(typeof(Grants).GetFields(BindingFlags.Public | BindingFlags.Static).Where(x => x.DeclaringType.Equals(typeof(Grants))).Select(x => new { x.Name, Value = (Grants)x.GetValue(null) }).ToDictionary(x => x.Name, x => x.Value)));
         }
         public BigIntegerEnumTemplate(BigInteger value)
         {
